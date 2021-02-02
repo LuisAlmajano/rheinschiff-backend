@@ -28,6 +28,7 @@ router.post("/", async (req, res) => {
 
   const boat = new Boat({
     name: req.body.name,
+    description: req.body.description,
     image: req.body.image,
     timeseen: Date.now(),
     countseen: 1,
@@ -45,7 +46,7 @@ router.put("/:id", async (req, res) => {
 
   const boat = await Boat.findByIdAndUpdate(
     req.params.id,
-    { name: req.body.name, image: req.body.image, countseen: req.body.countseen },
+    { name: req.body.name, description: req.body.description, image: req.body.image, countseen: req.body.countseen },
     { new: true }
   );
 
