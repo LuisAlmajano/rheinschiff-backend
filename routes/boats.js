@@ -3,13 +3,29 @@ const express = require("express");
 const { Boat, validate } = require("../models/boat");
 const router = express.Router();
 
-/* Get all boats */
+/* Get a boat by its name or get all boats */
+// http://localhost:3001/api/boats
 router.get("/", async (req, res) => {
-  const boats = await Boat.find().sort("name");
-  res.send(boats);
+
+  if (req.query.hasOwnProperty("name")) {
+    // Get a boat by its name
+    // http://localhost:3001/api/boats?name=Innuendo
+    const boat = await Boat.find({ name: req.query.name });
+
+    if (boat.length === 0)
+      return res.status(404).send("The boat with the given name was not found.");
+      
+    res.send(boat);
+  } else {
+    // Get all boats
+    // http://localhost:3001/api/boats
+    const boats = await Boat.find().sort("name");
+    res.send(boats);
+  }
 });
 
 /* Get a boat by its id */
+// http://localhost:3001/api/boats/:id
 router.get("/:id", async (req, res) => {
   const boat = await Boat.findById(req.params.id);
 
@@ -18,6 +34,18 @@ router.get("/:id", async (req, res) => {
 
   res.send(boat);
 });
+
+/* Get a boat by its name */
+// http://localhost:3001/api/boats?name=Innuendo
+// router.get("/", async (req, res) => {
+
+//   const boat = await Boat.find({ name: req.query.name });
+
+//   if (!boat)
+//     return res.status(404).send("The boat with the given name was not found.");
+
+//   res.send(boat);
+// });
 
 /* Post Create a new boat */
 router.post("/", async (req, res) => {
@@ -46,7 +74,12 @@ router.put("/:id", async (req, res) => {
 
   const boat = await Boat.findByIdAndUpdate(
     req.params.id,
-    { name: req.body.name, description: req.body.description, image: req.body.image, countseen: req.body.countseen },
+    {
+      name: req.body.name,
+      description: req.body.description,
+      image: req.body.image,
+      countseen: req.body.countseen,
+    },
     { new: true }
   );
 
@@ -57,10 +90,11 @@ router.put("/:id", async (req, res) => {
 });
 
 /* Delete an exisiting boat */
-router.delete('/:id', async (req, res) => {
+router.delete("/:id", async (req, res) => {
   const boat = await Boat.findByIdAndRemove(req.params.id);
 
-  if (!boat) return res.status(404).send('The boat with the given ID was not found.');
+  if (!boat)
+    return res.status(404).send("The boat with the given ID was not found.");
 
   res.send(boat);
 });
