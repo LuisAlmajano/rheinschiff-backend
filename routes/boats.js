@@ -58,7 +58,7 @@ router.post("/", async (req, res) => {
     name: req.body.name,
     description: req.body.description,
     image: req.body.image,
-    timeseen: Date.now(),
+    timeseen: req.body.timeseen,
     countseen: 1,
   });
 

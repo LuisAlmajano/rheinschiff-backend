@@ -16,9 +16,11 @@ const boatSchema = new mongoose.Schema({
   },
   image: {
     type: String,
+    default: "https://picsum.photos/400",
   },
   timeseen: {
     type: Date,
+    default: new Date(),
   },
   countseen: {
     type: Number,
