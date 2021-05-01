@@ -24,7 +24,8 @@ const boatSchema = new mongoose.Schema({
   },
   countseen: {
     type: Number,
-    min: 0,
+    default: 1,
+    min: 1,
   },
 });
 
@@ -36,7 +37,7 @@ function validateBoat(boat) {
     description: Joi.string().min(4).max(200),
     image: Joi.string(),
     timeseen: Joi.date(),
-    countseen: Joi.number().integer().min(0),
+    countseen: Joi.number().integer().min(1),
   });
   return schema.validate(boat);
 }

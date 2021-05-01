@@ -4,28 +4,29 @@ const { Boat, validate } = require("../models/boat");
 const router = express.Router();
 
 /* Get a boat by its name or get all boats */
-// http://localhost:3001/api/boats
+// http://localhost:5001/api/boats
 router.get("/", async (req, res) => {
-
   if (req.query.hasOwnProperty("name")) {
     // Get a boat by its name
-    // http://localhost:3001/api/boats?name=Innuendo
+    // http://localhost:5001/api/boats?name=Innuendo
     const boat = await Boat.find({ name: req.query.name });
 
     if (boat.length === 0)
-      return res.status(404).send("The boat with the given name was not found.");
-      
+      return res
+        .status(404)
+        .send("The boat with the given name was not found.");
+
     res.send(boat);
   } else {
     // Get all boats
-    // http://localhost:3001/api/boats
+    // http://localhost:5001/api/boats
     const boats = await Boat.find().sort("name");
     res.send(boats);
   }
 });
 
 /* Get a boat by its id */
-// http://localhost:3001/api/boats/:id
+// http://localhost:5001/api/boats/:id
 router.get("/:id", async (req, res) => {
   const boat = await Boat.findById(req.params.id);
 
@@ -36,7 +37,7 @@ router.get("/:id", async (req, res) => {
 });
 
 /* Get a boat by its name */
-// http://localhost:3001/api/boats?name=Innuendo
+// http://localhost:5001/api/boats?name=Innuendo
 // router.get("/", async (req, res) => {
 
 //   const boat = await Boat.find({ name: req.query.name });
@@ -76,11 +77,15 @@ router.put("/:id", async (req, res) => {
     req.params.id,
     {
       name: req.body.name,
-      description: req.body.description,
-      image: req.body.image,
-      countseen: req.body.countseen,
+      description: req.body.description ? req.body.description : undefined,
+      image: req.body.image ? req.body.image : undefined,
+      timeseen: req.body.timeseen ? req.body.timeseen : undefined,
+      countseen: req.body.countseen ? req.body.countseen : undefined,
     },
-    { new: true }
+    { new: true, overwrite: false, omitUndefined: true }
+    // If omitUndefined: true, delete any properties whose value is undefined when casting an update. 
+    // In other words, if this is set, Mongoose will delete baz from the update in Model.updateOne({}, { foo: 'bar', baz: undefined }) before 
+    // sending the update to the server.
   );
 
   if (!boat)
