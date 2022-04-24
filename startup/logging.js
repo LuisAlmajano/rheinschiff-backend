@@ -15,9 +15,9 @@ module.exports = function () {
 
   const db = config.get("db_atlas");
 
-  // winston.add(winston.transports.File, { filename: "logfile.log" });
-  // winston.add(winston.transports.MongoDB, {
-  //    db,
-  //    level: 'info'
-  //  });
+  winston.add(winston.transports.File, { filename: "logfile.log" });
+  winston.add(winston.transports.MongoDB, {
+     db,
+     level: 'info'
+   });
 };

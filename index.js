@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 
 require("./startup/db")();
-require("./startup/logging")();
+require("./startup/logging");
 require("./routes/routes")(app);
 
 const port = process.env.PORT || 5001;
