@@ -59,7 +59,8 @@ router.post("/", async (req, res) => {
     name: req.body.name,
     description: req.body.description,
     image: req.body.image,
-    timeseen: req.body.timeseen,
+    firstseen: req.body.firstseen,
+    lastseen: req.body.lastseen,
     countseen: 1,
   });
 
@@ -79,12 +80,13 @@ router.put("/:id", async (req, res) => {
       name: req.body.name,
       description: req.body.description ? req.body.description : undefined,
       image: req.body.image ? req.body.image : undefined,
-      timeseen: req.body.timeseen ? req.body.timeseen : undefined,
+      firstseen: req.body.firstseen ? req.body.firstseen : undefined,
+      lastseen: req.body.lastseen ? req.body.lastseen : undefined,
       countseen: req.body.countseen ? req.body.countseen : undefined,
     },
     { new: true, overwrite: false, omitUndefined: true }
-    // If omitUndefined: true, delete any properties whose value is undefined when casting an update. 
-    // In other words, if this is set, Mongoose will delete baz from the update in Model.updateOne({}, { foo: 'bar', baz: undefined }) before 
+    // If omitUndefined: true, delete any properties whose value is undefined when casting an update.
+    // In other words, if this is set, Mongoose will delete baz from the update in Model.updateOne({}, { foo: 'bar', baz: undefined }) before
     // sending the update to the server.
   );
 

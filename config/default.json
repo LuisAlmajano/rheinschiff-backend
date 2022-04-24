@@ -1,3 +1,4 @@
 {
-    "db": "mongodb://localhost/rheinschiffe"
+  "db": "mongodb://localhost/rheinschiffe",
+  "db_atlas": "mongodb+srv://luisalma:eTKW101ueg4VD60y@rheinschiffe.sjdrc.mongodb.net/rheinschiffe?retryWrites=true&w=majority"
 }

@@ -12,15 +12,18 @@ const boatSchema = new mongoose.Schema({
   description: {
     type: String,
     minlength: 4,
-    maxlength: 200,
+    maxlength: 500,
   },
   image: {
     type: String,
     default: "https://picsum.photos/400",
   },
-  timeseen: {
+  firstseen: {
     type: Date,
     default: new Date(),
+  },
+  lastseen: {
+    type: Date,
   },
   countseen: {
     type: Number,
@@ -34,9 +37,10 @@ const Boat = mongoose.model("Boat", boatSchema);
 function validateBoat(boat) {
   const schema = Joi.object({
     name: Joi.string().min(4).max(50).required(),
-    description: Joi.string().min(4).max(200),
+    description: Joi.string().min(4).max(500),
     image: Joi.string(),
-    timeseen: Joi.date(),
+    firstseen: Joi.date(),
+    lastseen: Joi.date(),
     countseen: Joi.number().integer().min(1),
   });
   return schema.validate(boat);
