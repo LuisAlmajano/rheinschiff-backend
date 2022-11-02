@@ -1,6 +1,10 @@
 # Download version of node
 FROM node:alpine
 
+# The NODE_ENV environment variable specifies the environment in which an application is running (usually, development or production). 
+# One of the simplest things you can do to improve performance is to set NODE_ENV to production.
+# ENV NODE_ENV=production
+
 # Set the work directory to backend folder
 WORKDIR /backend
 
