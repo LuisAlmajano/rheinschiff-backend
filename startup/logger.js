@@ -1,6 +1,5 @@
 // Ref: https://www.youtube.com/watch?v=PdVlAi7nrRU
-// Ref: https://medium.com/fortjs/exception-logging-in-nodejs-using-winston-e19d857d356f
-
+// Ref Winston daily rotate file: https://medium.com/fortjs/exception-logging-in-nodejs-using-winston-e19d857d356f
 
 const { createLogger, transports, format, exceptions } = require("winston");
 require("winston-mongodb");
@@ -15,7 +14,7 @@ const logger = createLogger({
       level: "info",
       filename: "logging/info-%DATE%.log",
       format: format.combine(format.timestamp(), format.simple()),
-      handleExceptions: true, 
+      handleExceptions: true,
     }),
     new transports.MongoDB({
       level: "error",
@@ -31,7 +30,7 @@ const logger = createLogger({
 if (process.env.NODE_ENV !== "production") {
   logger.add(
     new transports.Console({
-      format: format.simple(), 
+      format: format.simple(),
     })
   );
 }
