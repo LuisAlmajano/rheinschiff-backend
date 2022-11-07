@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const { Boat, validate } = require("../models/boat");
 const router = express.Router();
+const logger = require("../startup/logger");
 
 /* Get a boat by its name or get all boats */
 // http://localhost:5001/api/boats
@@ -53,8 +54,6 @@ router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  console.log("Boat name: ", req.body.name);
-
   const boat = new Boat({
     name: req.body.name,
     description: req.body.description,
@@ -65,6 +64,7 @@ router.post("/", async (req, res) => {
   });
 
   await boat.save();
+  logger.info(`New boat created: ${req.body.name}`);
 
   res.send(boat);
 });
