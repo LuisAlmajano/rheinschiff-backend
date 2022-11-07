@@ -1,5 +1,5 @@
 # Download version of node
-FROM node:alpine
+FROM node:16-alpine
 
 # The NODE_ENV environment variable specifies the environment in which an application is running (usually, development or production). 
 # One of the simplest things you can do to improve performance is to set NODE_ENV to production.

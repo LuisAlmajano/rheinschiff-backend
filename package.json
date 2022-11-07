@@ -17,6 +17,7 @@
     "joi": "^17.3.0",
     "mongoose": "^5.11.12",
     "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.7.1",
     "winston-mongodb": "^5.0.7"
   }
 }
