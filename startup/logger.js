@@ -1,9 +1,11 @@
 // Ref: https://www.youtube.com/watch?v=PdVlAi7nrRU
 // Ref Winston daily rotate file: https://medium.com/fortjs/exception-logging-in-nodejs-using-winston-e19d857d356f
 // Ref Logging incoming requests. Change applied in routes.js https://javascript.plainenglish.io/set-up-a-logger-for-your-node-app-with-winston-and-cloudwatch-in-5-minutes-dec0c6c0d5b8
-// Ref Winston Logger and AWS CloudWatch https://alexanderpaterson.com/posts/node-logging-like-a-boss-using-winston-and-aws-cloudwatch
+// Ref Winston Logger and AWS CloudWatch https://javascript.plainenglish.io/set-up-a-logger-for-your-node-app-with-winston-and-cloudwatch-in-5-minutes-dec0c6c0d5b8
+// https://alexanderpaterson.com/posts/node-logging-like-a-boss-using-winston-and-aws-cloudwatch
 
-const { createLogger, transports, format, exceptions } = require("winston");
+const { createLogger, transports, format, exceptions } = require("winston"),
+  WinstonCloudWatch = require("winston-cloudwatch");
 require("winston-mongodb");
 require("winston-daily-rotate-file");
 const config = require("config");
@@ -50,8 +52,10 @@ if (process.env.NODE_ENV === "production") {
         additionalInfo
       )}`,
   };
-  logger.add(CloudWatchTransport, cloudWatchConfig);
+  logger.add(new WinstonCloudWatch(cloudWatchConfig));
 }
+
+//console.log(process.env);
 
 process.on("unhandledRejection", (ex) => {
   throw ex;
