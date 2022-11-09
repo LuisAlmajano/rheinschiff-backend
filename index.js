@@ -7,5 +7,5 @@ require("./routes/routes")(app);
 
 const port = process.env.PORT || 5001;
 app.listen(port, () =>
-  logger.info(`Connection established - MongoDB server listening on port ${port}...`)
+  logger.log('info', `[STARTUP] Connection established - MongoDB server listening on port ${port}...`, {tags: 'startup, MongoDB'})
 );

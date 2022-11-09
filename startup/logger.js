@@ -1,5 +1,7 @@
 // Ref: https://www.youtube.com/watch?v=PdVlAi7nrRU
 // Ref Winston daily rotate file: https://medium.com/fortjs/exception-logging-in-nodejs-using-winston-e19d857d356f
+// Ref Logging incoming requests. Change applied in routes.js https://javascript.plainenglish.io/set-up-a-logger-for-your-node-app-with-winston-and-cloudwatch-in-5-minutes-dec0c6c0d5b8
+// Ref Winston Logger and AWS CloudWatch https://alexanderpaterson.com/posts/node-logging-like-a-boss-using-winston-and-aws-cloudwatch
 
 const { createLogger, transports, format, exceptions } = require("winston");
 require("winston-mongodb");
@@ -26,7 +28,7 @@ const logger = createLogger({
   ],
 });
 
-// If we're not in production then log to the `console`
+// If not in Production, then log to the `console`
 if (process.env.NODE_ENV !== "production") {
   logger.add(
     new transports.Console({
@@ -34,6 +36,9 @@ if (process.env.NODE_ENV !== "production") {
     })
   );
 }
+
+// If in Production, then log into AWS CloudWatch
+
 
 process.on("unhandledRejection", (ex) => {
   throw ex;

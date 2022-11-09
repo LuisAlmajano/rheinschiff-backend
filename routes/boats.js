@@ -64,7 +64,7 @@ router.post("/", async (req, res) => {
   });
 
   await boat.save();
-  logger.info(`New boat created: ${req.body.name}`);
+  logger.log("info", `[NEW BOAT] New boat created: ${req.body.name}`, {tags: 'newBoat, MongoDB'});
 
   res.send(boat);
 });
@@ -99,6 +99,9 @@ router.put("/:id", async (req, res) => {
 /* Delete an exisiting boat */
 router.delete("/:id", async (req, res) => {
   const boat = await Boat.findByIdAndRemove(req.params.id);
+  logger.log("info", `[BOAT DELETION] Boat ${boat.name} has been deleted`, {
+    tags: "deleteBoat, MongoDB",
+  });
 
   if (!boat)
     return res.status(404).send("The boat with the given ID was not found.");
