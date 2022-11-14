@@ -52,8 +52,8 @@ if (process.env.NODE_ENV === "production") {
     awsAccessKeyId: process.env.CLOUDWATCH_ACCESS_KEY,
     awsSecretKey: process.env.CLOUDWATCH_SECRET_ACCESS_KEY,
     awsRegion: process.env.CLOUDWATCH_REGION,
-    messageFormatter: ({ level, message, additionalInfo }) =>
-      `[${level}] : ${message} \nAdditional Info: ${JSON.stringify(
+    messageFormatter: ({ level, message, tags, additionalInfo }) =>
+      `[${level}] : ${message} \nTags: ${tags} \nAdditional Info: ${JSON.stringify(
         additionalInfo
       )}`,
   };
