@@ -20,5 +20,8 @@
     "winston-cloudwatch": "^6.1.1",
     "winston-daily-rotate-file": "^4.7.1",
     "winston-mongodb": "^5.0.7"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3"
   }
 }

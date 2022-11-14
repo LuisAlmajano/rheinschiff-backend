@@ -1,3 +1,6 @@
+# docker build -t luigialm/rheinschiffbackend .
+# docker run -p 5001:5001 luigialm/rheinschiffbackend
+
 # Download version of node
 FROM node:16-alpine
 

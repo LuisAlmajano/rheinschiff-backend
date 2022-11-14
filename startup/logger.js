@@ -8,7 +8,12 @@ const { createLogger, transports, format, exceptions } = require("winston"),
   WinstonCloudWatch = require("winston-cloudwatch");
 require("winston-mongodb");
 require("winston-daily-rotate-file");
+require("dotenv").config();
 const config = require("config");
+
+process.env.NODE_ENV = "production";
+console.log("NODE_ENV: " + config.util.getEnv("NODE_ENV"));
+console.log(process.env);
 
 const db = config.get("db_atlas");
 
@@ -55,7 +60,6 @@ if (process.env.NODE_ENV === "production") {
   logger.add(new WinstonCloudWatch(cloudWatchConfig));
 }
 
-//console.log(process.env);
 
 process.on("unhandledRejection", (ex) => {
   throw ex;
