@@ -23,6 +23,6 @@ COPY . .
 # Expose the service over PORT 5001
 EXPOSE 5001
 
-# Run with nodemon the node server with index.js file
+# Run the dev script: run with nodemon the node server with index.js file
 CMD ["npm", "run", "dev"]
 

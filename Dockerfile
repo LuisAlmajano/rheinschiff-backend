@@ -23,6 +23,6 @@ COPY . .
 # Expose the service over PORT 5001
 EXPOSE 5001
 
-# Run the node server with index.js file
-CMD ["node", "index.js"]
+# Run the prod script: run node server with index.js file
+CMD ["npm", "run", "prod"]
 

@@ -11,9 +11,11 @@ require("winston-daily-rotate-file");
 require("dotenv").config();
 const config = require("config");
 
-process.env.NODE_ENV = "production";
+// process.env.NODE_ENV = "production";
 // console.log("NODE_ENV: " + config.util.getEnv("NODE_ENV"));
-console.log(`process.env: ${process.env.NODE_ENV}`);
+console.log(`---- process.env: ${process.env.NODE_ENV} ----`);
+console.log('NODE_ENV: ' + config.util.getEnv('NODE_ENV'));
+console.log('NODE_CONFIG_DIR: ' + config.util.getEnv('NODE_CONFIG_DIR'));
 
 const db = config.get("db_atlas");
 
