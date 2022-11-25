@@ -13,7 +13,7 @@ const config = require("config");
 
 process.env.NODE_ENV = "production";
 // console.log("NODE_ENV: " + config.util.getEnv("NODE_ENV"));
-// console.log(process.env);
+console.log(`process.env: ${process.env.NODE_ENV}`);
 
 const db = config.get("db_atlas");
 
@@ -59,11 +59,6 @@ if (process.env.NODE_ENV === "production") {
   };
   logger.add(new WinstonCloudWatch(cloudWatchConfig));
 }
-
-
-process.on("unhandledRejection", (ex) => {
-  throw ex;
-});
 
 module.exports = logger;
 

@@ -1,5 +1,5 @@
-# docker build -t luigialm/rheinschiffbackend .
-# docker run -p 5001:5001 luigialm/rheinschiffbackend
+# docker build -t luigialm/rheinschiff-backend-dev -f Dockerfile.dev .
+# docker run -p 5001:5001 luigialm/rheinschiff-backend-dev
 
 # Download version of node
 FROM node:16-alpine
@@ -24,5 +24,5 @@ COPY . .
 EXPOSE 5001
 
 # Run with nodemon the node server with index.js file
-CMD ["nodemon", "index.js"]
+CMD ["npm", "run", "dev"]
 
