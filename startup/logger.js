@@ -8,16 +8,23 @@ const { createLogger, transports, format, exceptions } = require("winston"),
   WinstonCloudWatch = require("winston-cloudwatch");
 require("winston-mongodb");
 require("winston-daily-rotate-file");
-require("dotenv").config();
-const config = require("config");
+const {
+  DB_ATLAS,
+  NODE_ENV,
+  CLOUDWATCH_GROUP_NAME,
+  CLOUDWATCH_ACCESS_KEY,
+  CLOUDWATCH_SECRET_ACCESS_KEY,
+  CLOUDWATCH_REGION,
+} = require("./config");
 
-// process.env.NODE_ENV = "production";
-// console.log("NODE_ENV: " + config.util.getEnv("NODE_ENV"));
+// require("dotenv").config();
+//const config = require("config");
+
 console.log(`---- process.env: ${process.env.NODE_ENV} ----`);
-console.log('NODE_ENV: ' + config.util.getEnv('NODE_ENV'));
-console.log('NODE_CONFIG_DIR: ' + config.util.getEnv('NODE_CONFIG_DIR'));
+// console.log('NODE_ENV: ' + config.util.getEnv('NODE_ENV'));
+// console.log('NODE_CONFIG_DIR: ' + config.util.getEnv('NODE_CONFIG_DIR'));
 
-const db = config.get("db_atlas");
+// const db = config.get("db_atlas");
 
 const logger = createLogger({
   transports: [
@@ -29,7 +36,7 @@ const logger = createLogger({
     }),
     new transports.MongoDB({
       level: "error",
-      db,
+      db: DB_ATLAS,
       options: { useUnifiedTopology: true },
       format: format.combine(format.timestamp(), format.simple()),
       collection: "logs",
@@ -38,7 +45,7 @@ const logger = createLogger({
 });
 
 // If not in Production, then log to the `console`
-if (process.env.NODE_ENV !== "production") {
+if (NODE_ENV !== "production") {
   logger.add(
     new transports.Console({
       format: format.simple(),
@@ -47,13 +54,13 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 // If in Production, then log into AWS CloudWatch
-if (process.env.NODE_ENV === "production") {
+if (NODE_ENV === "production") {
   const cloudWatchConfig = {
-    logGroupName: process.env.CLOUDWATCH_GROUP_NAME,
-    logStreamName: `${process.env.CLOUDWATCH_GROUP_NAME}-${process.env.NODE_ENV}`,
-    awsAccessKeyId: process.env.CLOUDWATCH_ACCESS_KEY,
-    awsSecretKey: process.env.CLOUDWATCH_SECRET_ACCESS_KEY,
-    awsRegion: process.env.CLOUDWATCH_REGION,
+    logGroupName: CLOUDWATCH_GROUP_NAME,
+    logStreamName: `${CLOUDWATCH_GROUP_NAME}-${NODE_ENV}`,
+    awsAccessKeyId: CLOUDWATCH_ACCESS_KEY,
+    awsSecretKey: CLOUDWATCH_SECRET_ACCESS_KEY,
+    awsRegion: CLOUDWATCH_REGION,
     messageFormatter: ({ level, message, tags, additionalInfo }) =>
       `[${level}] : ${message} \nTags: ${tags} \nAdditional Info: ${JSON.stringify(
         additionalInfo

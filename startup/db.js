@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
 const logger = require("./logger");
-const config = require("config");
+const { DB_ATLAS } = require("./config");
 
 module.exports = function () {
-  const db = config.get("db_atlas");
+  // const db = config.get("db_atlas");
+  // const db = process.env.DB_ATLAS;
+
+  const db = DB_ATLAS;
+
   mongoose
     .connect(db, {
       useUnifiedTopology: true,

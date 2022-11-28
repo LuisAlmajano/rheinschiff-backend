@@ -2,11 +2,10 @@
 /node_modules
 
 # misc
+.env*
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.development
+.env.production
 
 /config
 

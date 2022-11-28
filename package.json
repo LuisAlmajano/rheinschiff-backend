@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "NODE_ENV=development && nodemon index.js",
-    "prod": "NODE_ENV=production && nodemon index.js"
+    "dev": "NODE_ENV=development nodemon index.js",
+    "prod": "NODE_ENV=production nodemon index.js"
   },
   "keywords": [],
   "author": "Luis A.",
   "license": "ISC",
   "dependencies": {
-    "config": "^3.3.3",
+    "config": "^3.3.8",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
