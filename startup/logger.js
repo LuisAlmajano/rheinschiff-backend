@@ -24,8 +24,6 @@ console.log(`---- process.env: ${process.env.NODE_ENV} ----`);
 // console.log('NODE_ENV: ' + config.util.getEnv('NODE_ENV'));
 // console.log('NODE_CONFIG_DIR: ' + config.util.getEnv('NODE_CONFIG_DIR'));
 
-// const db = config.get("db_atlas");
-
 const logger = createLogger({
   transports: [
     new transports.DailyRotateFile({
@@ -58,8 +56,10 @@ if (NODE_ENV === "production") {
   const cloudWatchConfig = {
     logGroupName: CLOUDWATCH_GROUP_NAME,
     logStreamName: `${CLOUDWATCH_GROUP_NAME}-${NODE_ENV}`,
-    awsAccessKeyId: CLOUDWATCH_ACCESS_KEY,
-    awsSecretKey: CLOUDWATCH_SECRET_ACCESS_KEY,
+    awsOptions: {
+      awsAccessKeyId: CLOUDWATCH_ACCESS_KEY,
+      awsSecretKey: CLOUDWATCH_SECRET_ACCESS_KEY,
+    },
     awsRegion: CLOUDWATCH_REGION,
     messageFormatter: ({ level, message, tags, additionalInfo }) =>
       `[${level}] : ${message} \nTags: ${tags} \nAdditional Info: ${JSON.stringify(

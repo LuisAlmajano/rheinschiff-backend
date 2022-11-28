@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 module.exports = {
-  NODE_ENV: process.env.NODE_ENV || "development",
+  NODE_ENV: process.env.NODE_ENV || "production",
   PORT: process.env.PORT || 5001,
   DB_ATLAS: process.env.DB_ATLAS,
   CLOUDWATCH_GROUP_NAME: process.env.CLOUDWATCH_GROUP_NAME,
