@@ -12,7 +12,6 @@ module.exports = function () {
     .connect(db, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
-      useFindAndModify: false,
     })
     .then(() =>
       logger.log(
