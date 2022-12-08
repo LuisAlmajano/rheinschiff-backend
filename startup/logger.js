@@ -17,26 +17,36 @@ const {
   CLOUDWATCH_REGION,
 } = require("./config");
 
-// require("dotenv").config();
-//const config = require("config");
-
 console.log(`---- process.env: ${process.env.NODE_ENV} ----`);
 // console.log('NODE_ENV: ' + config.util.getEnv('NODE_ENV'));
 // console.log('NODE_CONFIG_DIR: ' + config.util.getEnv('NODE_CONFIG_DIR'));
+
+// Set locale and timezone -- https://stackoverflow.com/questions/62931238/how-to-change-timezone-in-winston-timestamp-node-js
+const timezoned = () => {
+  return new Date().toLocaleString("en-US", {
+    timeZone: "Europe/Berlin",
+  });
+};
 
 const logger = createLogger({
   transports: [
     new transports.DailyRotateFile({
       level: "info",
       filename: "logging/info-%DATE%.log",
-      format: format.combine(format.timestamp(), format.simple()),
+      format: format.combine(
+        format.timestamp({ format: timezoned }),
+        format.simple()
+      ),
       handleExceptions: true,
     }),
     new transports.MongoDB({
       level: "error",
       db: DB_ATLAS,
       options: { useUnifiedTopology: true },
-      format: format.combine(format.timestamp(), format.simple()),
+      format: format.combine(
+        format.timestamp({ format: timezoned }),
+        format.simple()
+      ),
       collection: "logs",
     }),
   ],
@@ -65,6 +75,7 @@ if (NODE_ENV === "production") {
       `[${level}] : ${message} \nTags: ${tags} \nAdditional Info: ${JSON.stringify(
         additionalInfo
       )}`,
+    retentionInDays: 731,
   };
   logger.add(new WinstonCloudWatch(cloudWatchConfig));
 }

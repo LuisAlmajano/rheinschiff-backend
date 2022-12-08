@@ -8,6 +8,8 @@ module.exports = function () {
 
   const db = DB_ATLAS;
 
+  // https://stackoverflow.com/questions/59560091/the-options-usefindandmodify-is-not-supported
+  // useFindAnyModify is not supported if you are using mongoose version 6+.
   mongoose
     .connect(db, {
       useUnifiedTopology: true,
