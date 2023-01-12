@@ -4,6 +4,7 @@ const app = express();
 require("./startup/db")();
 const logger = require("./startup/logger");
 require("./routes/routes")(app);
+
 const { PORT } = require("./startup/config");
 
 app.listen(PORT, () => {

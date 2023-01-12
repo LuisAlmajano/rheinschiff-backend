@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -18,6 +19,16 @@ module.exports = function (app) {
     next();
   });
   app.use("/api/boats", boats);
+
+  // Serve static assets in Production
+  if (process.env.NODE === "production") {
+    // Set static folder
+    app.use(express.static(path.join(__dirname, "./frontend/build")));
+
+    app.get("/", (req, res) => {
+      res.sendFile(path.join(__dirname, "./frontend/build/index.html"));
+    });
+  }
 
   //app.use(error);
 };
