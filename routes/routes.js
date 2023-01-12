@@ -21,7 +21,7 @@ module.exports = function (app) {
   app.use("/api/boats", boats);
 
   // Serve static assets in Production
-  if (process.env.NODE === "production") {
+  if (process.env.NODE_ENV === "production") {
     // Set static folder
     app.use(express.static(path.join(__dirname, "./frontend/build")));
 
