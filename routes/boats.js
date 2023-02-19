@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const express = require("express");
 const { Boat, validate } = require("../models/boat");
 const router = express.Router();
@@ -53,6 +52,8 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
+
+  // ToDo: Check if boat is already available before saving
 
   const boat = new Boat({
     name: req.body.name,
