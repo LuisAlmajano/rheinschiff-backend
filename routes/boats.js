@@ -53,9 +53,13 @@ router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  // ToDo: Check if boat is already available before saving
+  // Check if boat is already available before saving and if so, inform user
+  const boat = await Boat.findOne({ name: req.body.name });
+  if (boat)
+    return res.status(409).send("A boat with the same name already exists.");
 
-  const boat = new Boat({
+  // If it's a new boat, it can be saved in DB  
+  const newBoat = new Boat({
     name: req.body.name,
     description: req.body.description,
     image: req.body.image,
@@ -64,13 +68,13 @@ router.post("/", async (req, res) => {
     countseen: 1,
   });
 
-  await boat.save();
+  await newBoat.save();
   logger.log("info", `[NEW BOAT] New boat created: ${req.body.name}`, {
     tags: "newBoat, MongoDB",
     additionalInfo: { body: req.body, headers: req.headers },
   });
 
-  res.send(boat);
+  res.send(newBoat);
 });
 
 /* Put to edit an existing boat */
