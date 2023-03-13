@@ -17,7 +17,7 @@ const {
   CLOUDWATCH_REGION,
 } = require("./config");
 
-console.log(`---- process.env: ${process.env.NODE_ENV} ----`);
+console.log(`---- process.env.NODE_ENV: ${process.env.NODE_ENV} ----`);
 // console.log('NODE_ENV: ' + config.util.getEnv('NODE_ENV'));
 // console.log('NODE_CONFIG_DIR: ' + config.util.getEnv('NODE_CONFIG_DIR'));
 

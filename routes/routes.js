@@ -23,10 +23,11 @@ module.exports = function (app) {
   // Serve static assets in Production
   if (process.env.NODE_ENV === "production") {
     // Set static folder
-    app.use(express.static(path.join(__dirname, "./frontend/build")));
+    console.log("STATIC FOLDER=", path.join(__dirname, "../../frontend/build"));
+    app.use(express.static(path.join(__dirname, "../../frontend/build")));
 
     app.get("/", (req, res) => {
-      res.sendFile(path.join(__dirname, "./frontend/build/index.html"));
+      res.sendFile(path.join(__dirname, "../../frontend/build/index.html"));
     });
   }
 
