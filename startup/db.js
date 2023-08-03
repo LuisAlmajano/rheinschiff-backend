@@ -27,7 +27,7 @@ module.exports = function () {
     .catch((err) =>
       logger.log(
         "error",
-        `message - ${err.message}, stack trace - ${err.stack}`,
+        `[STARTUP] message - ${err.message}, stack trace - ${err.stack}`,
         { tags: "startup, MongoDB" }
       )
     );
