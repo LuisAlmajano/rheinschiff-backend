@@ -1,6 +1,6 @@
 {
   "name": "rheinschiff-backend",
-  "version": "1.1.0",
+  "version": "1.4.0",
   "description": "Node.js backend to Rheinschiff app",
   "main": "index.js",
   "scripts": {
