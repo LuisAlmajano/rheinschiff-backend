@@ -36,7 +36,7 @@ const Boat = mongoose.model("Boat", boatSchema);
 
 function validateBoat(boat) {
   const schema = Joi.object({
-    name: Joi.string().min(4).max(50).required(),
+    name: Joi.string().min(3).max(50).required(),
     description: Joi.string().min(4).max(500),
     image: Joi.string(),
     firstseen: Joi.date(),
