@@ -6,12 +6,12 @@ const boatSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    minlength: 4,
+    minlength: 3,
     maxlength: 50,
   },
   description: {
     type: String,
-    minlength: 4,
+    minlength: 3,
     maxlength: 500,
   },
   image: {
@@ -37,7 +37,7 @@ const Boat = mongoose.model("Boat", boatSchema);
 function validateBoat(boat) {
   const schema = Joi.object({
     name: Joi.string().min(3).max(50).required(),
-    description: Joi.string().min(4).max(500),
+    description: Joi.string().min(3).max(500),
     image: Joi.string(),
     firstseen: Joi.date(),
     lastseen: Joi.date(),
