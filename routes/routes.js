@@ -10,8 +10,11 @@ module.exports = function (app) {
   // Securing HTTP headers with Helmet
   app.use(helmet());
   app.use(express.json());
-  // Adding Rate Limiting middleware 
+ 
+  // Adding Rate Limiting middleware
   app.use(limiter);
+  app.set("trust proxy", true);
+
   app.use(cors());
   // Logging all incoming requests with Winston
   app.use((req, res, next) => {

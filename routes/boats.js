@@ -3,6 +3,16 @@ const { Boat, validate } = require("../models/boat");
 const router = express.Router();
 const logger = require("../startup/logger");
 
+/* Get Request IP for Rate Limiter purpuses only */
+// http://localhost:5001/api/boats/ip
+// router.get("/ip", (req, res) => {
+//   res.json({
+//     ip: req.ip,
+//     protocol: req.protocol,
+//     headers: req.headers["x-forwarded-for"],
+//   });
+// });
+
 /* Get a boat by its name or get all boats */
 // http://localhost:5001/api/boats
 router.get("/", async (req, res) => {
@@ -58,7 +68,7 @@ router.post("/", async (req, res) => {
   if (boat)
     return res.status(409).send("A boat with the same name already exists.");
 
-  // If it's a new boat, it can be saved in DB  
+  // If it's a new boat, it can be saved in DB
   const newBoat = new Boat({
     name: req.body.name,
     description: req.body.description,
