@@ -18,7 +18,7 @@ module.exports = function () {
     .then(() =>
       logger.log(
         "info",
-        `[STARTUP] Connected to: ${
+        `[STARTUP] Connected to MongoDB: ${
           db.slice(0, 23) + "<password>" + db.slice(39)
         }`,
         { tags: "startup, MongoDB" }

@@ -10,11 +10,11 @@ const { PORT } = require("./startup/config");
 app.listen(PORT, () => {
   logger.log(
     "info",
-    `[STARTUP] Connection established - MongoDB server listening on port ${PORT}...`,
-    { tags: "startup, MongoDB" }
+    `[STARTUP] Express server listening on port ${PORT}...`,
+    { tags: "startup, Express" }
   );
   console.log(
     "info",
-    `[STARTUP] Connection established - MongoDB server listening on port ${PORT}...`
+    `[STARTUP] Express server listening on port ${PORT}...`
   );
 });

@@ -37,6 +37,7 @@ const logger = createLogger({
         format.timestamp({ format: timezoned }),
         format.simple()
       ),
+      maxFiles: "15d", // Keep log files for 15 days
       handleExceptions: true,
     }),
     new transports.MongoDB({
